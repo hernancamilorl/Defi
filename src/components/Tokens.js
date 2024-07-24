@@ -116,7 +116,7 @@ class Tokens extends Component {
   _getContractBalanceUSDT = async () => {
     try {
       console.log("Fetching contract's token balance...");
-      const balance = await this.state.contract.methods.getUSDTBalance().call();
+      const balance = await this.state.contract.methods.getContractUSDTBalance().call();
       Swal.fire({
         icon: 'info',
         title: 'Contract USDT Balance:',
