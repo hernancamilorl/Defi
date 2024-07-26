@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 
-const Navigation = ({ account }) => {
+const Navigation = ({ account, usdtUserBalance }) => {
     return (
         <Navbar expand="lg" bg="dark" variant="dark">
             <Container>
@@ -13,10 +13,8 @@ const Navigation = ({ account }) => {
                 <Navbar.Collapse id="navbar navbar-dark bg-primary">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Tokens</Nav.Link>
-                        <Nav.Link as={Link} to="/loteria">Loteria</Nav.Link>
-                        <Nav.Link as={Link} to="/ganador">Ganador</Nav.Link>
                     </Nav>
-                    <Nav>
+                    <Nav className="ms-auto">
                         <Nav.Link
                             href={`https://etherscan.io/address/${account}`}
                             target="_blank"
@@ -26,12 +24,16 @@ const Navigation = ({ account }) => {
                                 {account.slice(0, 10) + '...' + account.slice(32, 42)}
                             </Button>
                         </Nav.Link>
+                        <Nav.Item className="ms-auto">
+                            <Button variant="outline-light">
+                                USDT Balance: {usdtUserBalance}
+                            </Button>
+                        </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    )
-
+    );
 }
 
 export default Navigation;

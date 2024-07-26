@@ -52,6 +52,10 @@ class Tokens extends Component {
       const usdtAddress = usdtContract.networks[networkId].address;
       const usdt = new web3.eth.Contract(usdtContract.abi, usdtAddress);
       this.setState({ usdt, usdtAddress });
+
+      // Obtener el balance de USDT
+      const balance = await usdt.methods.balanceOf(this.state.account).call();
+      this.setState({ usdtUserBalance: web3.utils.fromWei(balance, 'mwei') }); // Asumiendo 6 decimales en USDT
     } else {
       window.alert('The Smart Contract is not deployed on the current network!');
     }
@@ -61,6 +65,7 @@ class Tokens extends Component {
     super(props);
     this.state = {
       account: '0x0',
+      usdtUserBalance: '0',
       loading: true,
       contract: null,
       errorMessage: ''
@@ -188,7 +193,7 @@ class Tokens extends Component {
   render() {
     return (
       <div>
-        <Navigation account={this.state.account} />
+        <Navigation account={this.state.account} usdtUserBalance={this.state.usdtUserBalance} />
         <MyCarousel />
         <div className="container-fluid mt-5">
           <div className="row">
